@@ -2,6 +2,12 @@
 
 pragma solidity ^0.8.5;
 
+
+/// @title Nestcoin Library - A decentralised y
+/// @author Team Probation - Blockgames - Game phase
+/// @notice You can use this contract just to see the workings of a decentralized Library storage system
+/// @dev All function calls are currently implemented without side effects
+
 contract Filestorage {
     string public name;
     uint countPublic = 0;
