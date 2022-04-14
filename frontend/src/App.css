@@ -1,0 +1,29 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+p {
+  font-style: normal;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+}
+
+.hero-text {
+  font-size: 4.5em;
+}
+
+/* Media queries for 360 */
+
+@media screen and (min-width: 380px) {
+  .hero-text {
+    font-size: 3.5em;
+  }
+}
