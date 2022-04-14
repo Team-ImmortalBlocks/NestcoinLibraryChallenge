@@ -20,4 +20,11 @@ Just click on the search button, and search by name, CID, description etc
 
 
 
-Functions
+The contract behind this DApp is called Filestorage
+
+The struct public file takes in file meant to be accessible to the public, while the private struct takes in files meant to be public.
+These structs take in the following: the count, the IPFS hash and status, however, Inthe private File struct the owner is not taking in.
+
+The shared struct holds the address of the person who shares a file and the shared hash 
+
+The constructor takes in an argument which is  a string  stored in memory
