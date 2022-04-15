@@ -1,11 +1,28 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
+export default (props) => {
+  // Get the user address
+  const { address } = props.data;
+
+  // Get the wallet connection handler function
+  const handleConnectWallet = props.handler;
+
+  // Set the components connection set
+  const [isConnected, setConnection] = useState(false);
+
+  useEffect(() => {
+    if (address !== "") {
+      setConnection(true);
+    } else {
+      setConnection(false);
+    }
+  }, [address]);
+
   return (
     <Navbar expand="lg" bg="dark" variant="dark">
       <Container>
@@ -26,7 +43,13 @@ export default () => {
           </Nav>
 
           <Nav>
-            <Button variant="primary">Connect Wallet</Button>
+            {isConnected ? (
+              <Button variant="primary">Connected</Button>
+            ) : (
+              <Button onClick={() => handleConnectWallet()} variant="primary">
+                Connect Wallet
+              </Button>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

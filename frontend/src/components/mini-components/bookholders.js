@@ -30,7 +30,7 @@ const BookHolder = () => (
         </p>
         <div class="d-flex justify-content-between align-items-center">
           <Stack direction="horizontal" gap={1}>
-            <Button class="btn btn-md btn-outline-secondary">Info</Button>
+            {/* <Button class="btn btn-md btn-outline-secondary">Info</Button> */}
             <Button class="btn btn-md btn-outline-secondary">Read</Button>
           </Stack>
           <small class="text-muted">9 mins</small>
