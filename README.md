@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <h1> Nest Library </h1>
 Nest Library is a decentralised library, allowing users to upload books , and retrieve them and sharing it with others.
 Books uploaded are available to everyone on the Blockchain except if the upload is made private.
