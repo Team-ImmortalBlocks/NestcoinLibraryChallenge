@@ -89,6 +89,7 @@ function addFile ( string memory _hash, string memory _status ) public {
   /// @param _hashed_file The hash of the file to be shared
   function shareFile ( address _share_to, string memory _hashed_file ) public {
       require( _share_to != address(0), "Actual address is required");
+      require(msg.sender != _share_to, "You cannot share to yourself");
       shared_files[_share_to].push(sharedFile(msg.sender, _hashed_file));
   }
   
