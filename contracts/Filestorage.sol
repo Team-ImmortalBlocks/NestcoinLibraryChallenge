@@ -32,9 +32,6 @@ contract Filestorage {
 
     event FileCreation ( uint count, address owner, string Hash, Status status);
 
-    constructor (string memory _name) {
-        name = _name;
-    }
 
     function addFile ( string memory _hash, string memory _status ) public {
       if(keccak256(abi.encodePacked(_status)) == keccak256(abi.encodePacked("public"))) {
@@ -59,9 +56,9 @@ contract Filestorage {
       return public_files;
   }
 
-  function retrievePrivateFile (address _address) public view returns (Privatefile[] memory) {
-      require (address = msg.sender, "You do not have Access to retrieve this file");
-      return privatefiles[msg.sender];
+  function retrievePrivateFile (address _address) public view returns (Privatefile[] memory)  {
+      require(msg.sender == _address, "You do not have Access to retrieve this file");
+      return privatefiles[_address];
   }
 
   function shareFile ( address _share_to, string memory _hashed_file ) public {
@@ -69,7 +66,7 @@ contract Filestorage {
       shared_files[_share_to].push(sharedFile(msg.sender, _hashed_file));
   }
 
-  function getSharedFile(address _address) public returns (sharedFile[] memory) {
-      return shared_files[msg.sender];
+  function getSharedFile(address _address) public view returns (sharedFile[] memory) {
+      return shared_files[_address];
   }
 }
