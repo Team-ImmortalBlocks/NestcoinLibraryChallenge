@@ -22,8 +22,7 @@ Build a prototype that has all the above features
 
 
 <h2> SMART CONTRACT</h2>
-The contract can be found at https://rinkeby.etherscan.io/address/0xa1A5F14b48FC4E9CA091F887eFB490Ada6E0576E 
-
+The contract can be found at https://rinkeby.etherscan.io/address/0xe3FdBBc4e19Fe6C5E0efdBC9Dc0d8Fa4D7B7BFB1
 
 <h2> How to use the Nest Library DApp </h2>
 
