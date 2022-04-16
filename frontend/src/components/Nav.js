@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
   // Get the user address
-  const { address } = props.data;
+  const { address } = props;
 
   // Get the wallet connection handler function
   const handleConnectWallet = props.handler;
