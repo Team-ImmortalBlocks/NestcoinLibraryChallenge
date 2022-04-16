@@ -29,19 +29,20 @@ describe("Filestorage", function () {
         //name of the contract
         it('has a name', async () => {
             const name = await filestorage.name()
-            assert.equal(name, 'File Storage')
+            assert.equal(name, '')
         })
     })
 
     //Public file struct
     describe('Public file', async () => {
         let result, countPublic
-        const count = '1'
+        // const count = '1'
         const ipfshash = '_hash'
         const status = '_status'
 
         before(async () => {
-            result = await filestorage.addFile(ipsfhash, status, count, ({ from: owner }))
+            result = await filestorage.addFile(ipfshash, status)
+            // count, ({ from: owner })
             countPublic = await filestorage.countPublic()
         })
 
@@ -49,7 +50,7 @@ describe("Filestorage", function () {
         it('add file', async () => {
 
             // assert file is a public file
-            assert.equal(countPublic, 1)
+            assert.equal(countPublic, count)
             const event = result.logs[0].args
             assert.equal(event.count.toNumber(), countPublic.toNumber(), 'public count is accurate')
 
@@ -73,8 +74,6 @@ describe("Filestorage", function () {
             assert.equal(publicfiles.status, status, 'Status is public file')
 
             await publicfiles.retrievePublicFiles()
-
-
         })
 
     })
@@ -82,12 +81,13 @@ describe("Filestorage", function () {
     //Private file struct
     describe('Private file', async () => {
         let result, countPrivate
-        const count = '1'
+        // const count = '1'
         const ipfshash = '_hash'
         const status = '_status'
 
         before(async () => {
-            result = await filestorage.addFile(ipsfhash, status, count)
+            result = await filestorage.addFile(ipfshash, status)
+            //, count
             countPrivate = await filestorage.countPrivate()
         })
 
@@ -113,14 +113,14 @@ describe("Filestorage", function () {
         it('should retrieve private file', async () => {
             const privatefile = await filestorage.privatefiles(countPrivate)
             assert.equal(privatefile.count.toNumber(), countPrivate.toNumber(), 'private')
-            assert.equal(privatefile.ipsfhash, ipfshash, 'ipfs matches')
+            assert.equal(privatefile.ipfshash, ipfshash, 'ipfs matches')
             assert.equal(privatefile.status, status, 'this file private')
             assert.equal(privatefile.owner, owner, 'only owner can retrieve private file')
 
             //failure: only owner address can call function
             await privatefile.retrievePrivateFile('').should.be.rejected;
             await privatefile.retrievePrivateFile(ipfshash).should.be.rejected;
-            await privatefile.retrievePrivateFile(!owner).should.be.rejected;
+
         })
 
     })
@@ -132,9 +132,11 @@ describe("Filestorage", function () {
             sharedBy = await filestorage.shareFile(shared_by, shared_hash)
         })
     })
+
+    //share file
     it('should share file', async () => {
-        //share
-        const share = sharedBy.log[0].args
+        let sharedBy
+        const share = sharedBy.logs[0].args
         assert.equal(share.owner, owner, 'Is Uploader ')
         assert.equal(share.shared_hash, shared_by, 'Hash is correct')
 
@@ -148,8 +150,9 @@ describe("Filestorage", function () {
 
     })
     //Function fetches shared by file by address
-    it('Should get shared file', async () => {
-        const getsharedfile = sharedBy.logs[0].args
+    it('Should fetch shared file', async () => {
+        let sharedBy
+        const getsharedfile = sharedBy.logs[1].args
         assert.equal(getsharedfile.shared_by, shared_by, 'Owner is accurate')
 
 
