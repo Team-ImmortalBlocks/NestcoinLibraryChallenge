@@ -44,7 +44,7 @@ Just click on the search button, and search by name, CID, description etc
 <ul>
 <li>Clinton Felix</li>
 <li>Okekunle Oluwatobiloba</li>
-<li>Oluwafemi Oguntunse</li>
+<li>Oluwafemi Oguntuase</li>
 <li>Kenneth Ijama</li>
 <li>Abdulhafeez Jimoh</li>
 <li>Rukayyah Ibrahim</li>
