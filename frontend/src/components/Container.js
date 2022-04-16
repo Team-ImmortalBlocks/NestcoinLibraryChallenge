@@ -4,6 +4,7 @@ import SearchBox from "./SearchBox";
 import FeaturedBooks from "./FeaturedBooks";
 import MyBooks from "./MyBooks";
 import { ethers } from "ethers";
+import abi from "../ABI/nestLib.json";
 
 const AppContainer = () => {
   // usetstate for storing and retrieving wallet details
