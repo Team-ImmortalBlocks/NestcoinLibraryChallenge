@@ -1,19 +1,20 @@
+import { ethers } from "ethers";
+import { ERC20ABI as abi } from "../ABI/nestLib";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFileCirclePlus,
+  faArrowsSpin,
+} from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import handleSubmit from "./util/FileUpload";
 import { create } from "ipfs-http-client";
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
 const SearchBox = (props) => {
   // Get the user address
-  const { address } = props;
-
-  // Get the wallet connection handler function
-  const handleConnectWallet = props.handler;
+  const { address, handleConnectWallet, connection } = props;
 
   const [show, setShow] = useState(false);
 
@@ -22,6 +23,11 @@ const SearchBox = (props) => {
 
   // Set the Url for IPFS upload
   const [fileUrl, updateFileUrl] = useState(``);
+
+  // Set the Progress for upload the file
+  const [isLoading, setLoading] = useState(false);
+
+  const SMART_CONTRACT_ADDRESS = "0xe3FdBBc4e19Fe6C5E0efdBC9Dc0d8Fa4D7B7BFB1";
 
   useEffect(() => {
     if (address !== "") {
@@ -40,6 +46,8 @@ const SearchBox = (props) => {
     try {
       const added = await client.add(file);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+
+      // set the state for our file Url
       updateFileUrl(url);
     } catch (error) {
       console.log("Error uploading file: ", error);
@@ -47,6 +55,30 @@ const SearchBox = (props) => {
 
     e.preventDefault();
   }
+
+  //  The function sends the book to our Smart contract
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(fileUrl);
+
+    const title = e.target.title.value;
+    const hash = fileUrl;
+    const visibility = e.target.visibility.value;
+    const description = e.target.description.value;
+
+    const signer = connection.getSigner();
+
+    const contract = new ethers.Contract(SMART_CONTRACT_ADDRESS, abi, signer);
+
+    // add the file
+    contract
+      .addFile(title, visibility, hash, description, address)
+      .then((response) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -60,10 +92,11 @@ const SearchBox = (props) => {
           <Modal.Title>Add a File</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={(e) => handleSubmit(e, fileUrl)}>
+          <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>File Title</Form.Label>
               <Form.Control
+                name="title"
                 type="text"
                 placeholder="e.g 3 Golden lamps"
                 autoFocus
@@ -71,11 +104,22 @@ const SearchBox = (props) => {
               />
             </Form.Group>
 
-            <Form.Group></Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Set Visibility</Form.Label>
+              <Form.Select
+                name="visibility"
+                aria-label="Default select example"
+              >
+                <option>Choose</option>
+                <option value="Public">Public</option>
+                <option value="Private">Private</option>
+              </Form.Select>
+            </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Digital File (PDF)</Form.Label>
+              <Form.Label>Digital File (PDF, Mp3)</Form.Label>
               <Form.Control
+                name="ipfsHash"
                 onChange={onChange}
                 type="file"
                 placeholder="e.g 3 Golden lamps"
@@ -90,7 +134,7 @@ const SearchBox = (props) => {
               required
             >
               <Form.Label>File Description</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control name="description" as="textarea" rows={3} />
             </Form.Group>
 
             <Button type="submit" variant="primary">
@@ -115,12 +159,17 @@ const SearchBox = (props) => {
 
             {isConnected ? (
               <Button
+                disabled={isLoading}
                 variant="primary"
                 size="lg"
                 className="btn btn-primary btn-circle btn-xl"
                 onClick={() => handleShow()}
               >
-                <FontAwesomeIcon icon={faFileCirclePlus} />
+                {isLoading ? (
+                  <FontAwesomeIcon icon={faArrowsSpin} />
+                ) : (
+                  <FontAwesomeIcon icon={faFileCirclePlus} />
+                )}
               </Button>
             ) : (
               <Button onClick={() => handleConnectWallet()} variant="primary">

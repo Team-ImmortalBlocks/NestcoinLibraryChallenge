@@ -14,7 +14,7 @@ const AppContainer = () => {
   const [connection, setConnection] = useState();
 
   // Smart Contract Address hardCoded (not_recommended)
-  const SMART_CONTRACT_ADDRESS = "0xd0187b697C15C9Af1509f4a62ac77C53acF80247";
+  const SMART_CONTRACT_ADDRESS = "0xe3FdBBc4e19Fe6C5E0efdBC9Dc0d8Fa4D7B7BFB1";
 
   // Alway checking if MetaMask is actively connected
   useEffect(() => {
@@ -61,9 +61,13 @@ const AppContainer = () => {
   return (
     <Fragment>
       <Nav address={address} handler={handleConnectWallet} />
-      <SearchBox address={address} handler={handleConnectWallet} />
-      <FeaturedBooks handleConnectWallet />
-      <MyBooks handleConnectWallet />
+      <SearchBox
+        address={address}
+        connection={connection}
+        handleConnectWallet={handleConnectWallet}
+      />
+      <FeaturedBooks connection={connection} />
+      <MyBooks connection={connection} address={address} />
     </Fragment>
   );
 };

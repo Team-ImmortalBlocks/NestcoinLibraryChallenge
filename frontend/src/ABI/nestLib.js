@@ -1,173 +1,154 @@
 export const ERC20ABI = [
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "count",
-        "type": "uint256"
+        indexed: false,
+        internalType: "address",
+        name: "owner",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
+        indexed: false,
+        internalType: "string",
+        name: "fileName",
+        type: "string",
+      },
+      { indexed: false, internalType: "bool", name: "status", type: "bool" },
+    ],
+    name: "FileCreation",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "sharedTo",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "string",
-        "name": "Hash",
-        "type": "string"
+        indexed: false,
+        internalType: "address",
+        name: "sharedBy",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "enum Filestorage.Status",
-        "name": "status",
-        "type": "uint8"
-      }
+        indexed: false,
+        internalType: "string",
+        name: "sharedHash",
+        type: "string",
+      },
     ],
-    "name": "FileCreation",
-    "type": "event"
+    name: "FileSharing",
+    type: "event",
   },
   {
-    "inputs": [
-      { "internalType": "string", "name": "_hash", "type": "string" },
-      { "internalType": "string", "name": "_status", "type": "string" }
+    inputs: [
+      { internalType: "string", name: "_ipfsHash", type: "string" },
+      { internalType: "bool", name: "_status", type: "bool" },
+      { internalType: "string", name: "_fileName", type: "string" },
+      { internalType: "string", name: "_description", type: "string" },
     ],
-    "name": "addFile",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "addFile",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_address", "type": "address" }
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
     ],
-    "name": "getSharedFile",
-    "outputs": [
+    name: "privateFiles",
+    outputs: [
+      { internalType: "string", name: "ipfsHash", type: "string" },
+      { internalType: "bool", name: "status", type: "bool" },
+      { internalType: "string", name: "fileName", type: "string" },
+      { internalType: "string", name: "description", type: "string" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_owner", type: "address" }],
+    name: "retrievePrivateFiles",
+    outputs: [
       {
-        "components": [
-          { "internalType": "address", "name": "shared_by", "type": "address" },
-          { "internalType": "string", "name": "shared_hash", "type": "string" }
+        components: [
+          { internalType: "string", name: "ipfsHash", type: "string" },
+          { internalType: "bool", name: "status", type: "bool" },
+          { internalType: "string", name: "fileName", type: "string" },
+          { internalType: "string", name: "description", type: "string" },
         ],
-        "internalType": "struct Filestorage.sharedFile[]",
-        "name": "",
-        "type": "tuple[]"
-      }
+        internalType: "struct Fstorage.FileProp[]",
+        name: "",
+        type: "tuple[]",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
-    ],
-    "name": "privatefiles",
-    "outputs": [
-      { "internalType": "uint256", "name": "count", "type": "uint256" },
-      { "internalType": "string", "name": "ipfsHash", "type": "string" },
+    inputs: [],
+    name: "retrievePublicFiles",
+    outputs: [
       {
-        "internalType": "enum Filestorage.Status",
-        "name": "status",
-        "type": "uint8"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "publicfiles",
-    "outputs": [
-      { "internalType": "uint256", "name": "count", "type": "uint256" },
-      { "internalType": "address", "name": "owner", "type": "address" },
-      { "internalType": "string", "name": "ipfsHash", "type": "string" },
-      {
-        "internalType": "enum Filestorage.Status",
-        "name": "status",
-        "type": "uint8"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_address", "type": "address" }
-    ],
-    "name": "retrievePrivateFile",
-    "outputs": [
-      {
-        "components": [
-          { "internalType": "uint256", "name": "count", "type": "uint256" },
-          { "internalType": "string", "name": "ipfsHash", "type": "string" },
-          {
-            "internalType": "enum Filestorage.Status",
-            "name": "status",
-            "type": "uint8"
-          }
+        components: [
+          { internalType: "string", name: "ipfsHash", type: "string" },
+          { internalType: "bool", name: "status", type: "bool" },
+          { internalType: "string", name: "fileName", type: "string" },
+          { internalType: "string", name: "description", type: "string" },
         ],
-        "internalType": "struct Filestorage.Privatefile[]",
-        "name": "",
-        "type": "tuple[]"
-      }
+        internalType: "struct Fstorage.FileProp[]",
+        name: "",
+        type: "tuple[]",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "retrievePublicFile",
-    "outputs": [
+    inputs: [{ internalType: "address", name: "_sharedTo", type: "address" }],
+    name: "retrieveSharedFiles",
+    outputs: [
       {
-        "components": [
-          { "internalType": "uint256", "name": "count", "type": "uint256" },
-          { "internalType": "address", "name": "owner", "type": "address" },
-          { "internalType": "string", "name": "ipfsHash", "type": "string" },
-          {
-            "internalType": "enum Filestorage.Status",
-            "name": "status",
-            "type": "uint8"
-          }
+        components: [
+          { internalType: "address", name: "sharedTo", type: "address" },
+          { internalType: "address", name: "sharedBy", type: "address" },
+          { internalType: "string", name: "sharedHash", type: "string" },
         ],
-        "internalType": "struct Filestorage.Publicfile[]",
-        "name": "",
-        "type": "tuple[]"
-      }
+        internalType: "struct Fstorage.SharedFile[]",
+        name: "",
+        type: "tuple[]",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_share_to", "type": "address" },
-      { "internalType": "string", "name": "_hashed_file", "type": "string" }
+    inputs: [
+      { internalType: "address", name: "_sharedTo", type: "address" },
+      { internalType: "string", name: "_sharedHash", type: "string" },
     ],
-    "name": "shareFile",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "shareFile",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
     ],
-    "name": "shared_files",
-    "outputs": [
-      { "internalType": "address", "name": "shared_by", "type": "address" },
-      { "internalType": "string", "name": "shared_hash", "type": "string" }
+    name: "sharedFiles",
+    outputs: [
+      { internalType: "address", name: "sharedTo", type: "address" },
+      { internalType: "address", name: "sharedBy", type: "address" },
+      { internalType: "string", name: "sharedHash", type: "string" },
     ],
-    "stateMutability": "view",
-    "type": "function"
-  }
-]
+    stateMutability: "view",
+    type: "function",
+  },
+];

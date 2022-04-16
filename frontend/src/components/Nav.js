@@ -34,11 +34,11 @@ export default (props) => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1" className="justify-content-center">
-              Home
+            <Nav.Link href="#featured" className="justify-content-center">
+              Featured
             </Nav.Link>
-            <Nav.Link href="#action2" className="justify-content-center">
-              My Books
+            <Nav.Link href="#mybooks" className="justify-content-center">
+              My Files
             </Nav.Link>
           </Nav>
 

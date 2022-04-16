@@ -1,23 +1,38 @@
+import { useState, useEffect } from "react";
 import BookHolder from "./mini-components/bookholders";
 
-// TODO WE ARE TO RETRIEVE ALL FILE UPLOADED BY THE CURRENT OWNER
+const MyBooks = (props) => {
+  // Get the connec string from the props
+  const { connection, address } = props;
 
-// const arr_book = await abi_connect.getbooks(address);
+  // Set the for the featured book
+  const [myBooks, setBooks] = useState([]);
 
-const FeaturedBooks = () => (
-  <div class="album py-5 bg-white">
-    <div class="container py-5">
-      <h2 class="mb-5 text-center">My Files 😄</h2>
+  useEffect(() => {
+    async function fetchBooks(setBooks) {
+      //  Retrieve book from Smart Contract
+      const res = await connection.retrievePrivateFile(address);
+      // Set featured books
+      setBooks(res);
+    }
 
-      <div class="row  row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <BookHolder />
-        <BookHolder />
-        <BookHolder />
-        <BookHolder />
-        <BookHolder />
+    // Call the function fetchBooks function
+    fetchBooks(setBooks);
+  }, [address, connection, setBooks]);
+
+  return (
+    <div id="mybooks" class="album py-5 bg-white">
+      <div class="container py-5">
+        <h2 class="mb-5 text-center">My Files 😄</h2>
+
+        <div class="row  row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <BookHolder />
+          <BookHolder />
+          <BookHolder />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default FeaturedBooks;
+export default MyBooks;
