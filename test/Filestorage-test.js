@@ -19,7 +19,7 @@ describe("Filestorage", function () {
     //contract is deployed successfully
     describe('Deployment', function () {
         it('should deploy successfully', async () => {
-            const address = await filestorage.address()
+            const address = await filestorage.address
             assert.notEqual(address, 0x0)
             assert.notEqual(address, '')
             assert.notEqual(address, 'null')
@@ -123,6 +123,39 @@ describe("Filestorage", function () {
             await privatefile.retrievePrivateFile(!owner).should.be.rejected;
         })
 
+    })
+    describe('share file function', function () {
+        let sharedBy
+        const shared_by = 'owner'
+        const shared_hash = 'ipfshash'
+        before(async () => {
+            sharedBy = await filestorage.shareFile(shared_by, shared_hash)
+        })
+    })
+    it('should share file', async () => {
+        //share
+        const share = sharedBy.log[0].args
+        assert.equal(share.owner, owner, 'Is Uploader ')
+        assert.equal(share.shared_hash, shared_by, 'Hash is correct')
+
+        //FAILURE:share must have a reciever address as  a parameter
+        await filestorage.shareFile('', shared_hash).should.be.rejected;
+
+        //FAILURE:share function must contain ipfsh hash as parameter
+        await filestorage.shareFile({ from: owner }, '').should.be.rejected;
+        //FAILURE: share function cannot be empty
+        await filestorage.shareFile().should.be.rejected;
+
+    })
+    //Function fetches shared by file by address
+    it('Should get shared file', async () => {
+        const getsharedfile = sharedBy.logs[0].args
+        assert.equal(getsharedfile.shared_by, shared_by, 'Owner is accurate')
 
 
-    });
+        //Failure: you ,ust enter address of owner
+        await filestorage.getSharedFile('').should.be.rejected;
+
+    })
+
+});
