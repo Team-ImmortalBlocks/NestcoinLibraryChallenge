@@ -14,12 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Fstorage = await hre.ethers.getContractFactory("Fstorage");
-  const fstorage = await Fstorage.deploy();
+  const Filestorage = await hre.ethers.getContractFactory("Filestorage");
+  const filestorage = await Filestorage.deploy();
 
-  await fstorage.deployed();
+  await filestorage.deployed();
 
-  console.log("fstorage deployed to: ", fstorage.address);
+  console.log("filestorage deployed to: ", filestorage.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
