@@ -27,6 +27,22 @@ Just click on the search button, and search by name, CID, description etc
 
 The contract behind this DApp is called Filestorage
 
+
+<h2> TEAM </h2>
+Clinton Felix
+
+Okekunle Oluwatobiloba
+
+Oluwafemi Oguntuase
+
+Kenneth Ijama
+
+Abdul hafeez Jimoh
+
+Rukayyah Ibrahim
+
+Igwe Uchenna Felix
+
 The struct public file takes in file meant to be accessible to the public, while the private struct takes in files meant to be public.
 These structs take in the following: the count, the IPFS hash and status, however, Inthe private File struct the owner is not taking in.
 
