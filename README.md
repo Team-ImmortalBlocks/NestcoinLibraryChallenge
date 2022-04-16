@@ -15,6 +15,12 @@ Create a decentralized file storage system that does the following:
 Build a prototype that has all the above features
 
 
+<h2> UI DESIGN </h2>
+
+<img width="1262" alt="screenshot_2022-04-16_at_01 24 28" src="https://user-images.githubusercontent.com/52762924/163684397-6bbb21ce-5c1d-47ee-b674-5b98ba741720.png">
+<img width="1197" alt="screenshot_2022-04-16_at_01 25 17" src="https://user-images.githubusercontent.com/52762924/163684409-45c816d7-46b7-4960-a27a-2e119e6f84bb.png"><img width="1227" alt="screenshot_2022-04-16_at_01 26 00" src="https://user-images.githubusercontent.com/52762924/163684418-673783e6-7b28-4267-a5dd-d9969b2de22f.png">
+
+
 <h2> SMART CONTRACT</h2>
 The contract can be found at https://rinkeby.etherscan.io/address/0xa1A5F14b48FC4E9CA091F887eFB490Ada6E0576E 
 
@@ -43,4 +49,6 @@ Just click on the search button, and search by name, CID, description etc
 <li>Abdulhafeez Jimoh</li>
 <li>Rukayyah Ibrahim</li>
 <li>Igwe Uchenna Felix</li></ul>
+
+
 
