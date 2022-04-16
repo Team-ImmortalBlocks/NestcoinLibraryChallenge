@@ -58,8 +58,9 @@ contract Fstorage {
     emit FileSharing(_sharedTo, msg.sender, _sharedHash);
   }
 
-  function retrieveSharedFiles() public view returns (SharedFile[] memory) {
-    return sharedFiles[msg.sender];
+  function retrieveSharedFiles(address _sharedTo) public view returns (SharedFile[] memory) {
+    require(msg.sender == _sharedTo, "you cant retrieve shared files from yourself");
+    return sharedFiles[_sharedTo];
   }
 
 }
