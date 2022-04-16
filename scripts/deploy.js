@@ -14,7 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const DeployedFileStorage = await hre.ethers.getContractFactory("Filestorage");
+  const DeployedFileStorage = await hre.ethers.getContractFactory("Fstorage");
   const deployedfilestorage = await DeployedFileStorage.deploy();
 
   await deployedfilestorage.deployed();
