@@ -4,30 +4,39 @@ import SearchBox from "./SearchBox";
 import FeaturedBooks from "./FeaturedBooks";
 import MyBooks from "./MyBooks";
 import { ethers } from "ethers";
-import abi from "../ABI/nestLib.json";
+import { ERC20ABI as abi } from "../ABI/nestLib";
 
 const AppContainer = () => {
   // usetstate for storing and retrieving wallet details
-  const [account, setaccount] = useState({
-    address: "",
-    balance: null,
-  });
+  const [address, setaccount] = useState("");
+
+  // Set the Smart Contract connection handler string
+  const [connection, setConnection] = useState();
+
+  // Smart Contract Address hardCoded (not_recommended)
+  const SMART_CONTRACT_ADDRESS = "0xd0187b697C15C9Af1509f4a62ac77C53acF80247";
 
   // Alway checking if MetaMask is actively connected
   useEffect(() => {
     if (!window.ethereum.isConnected()) {
       // Set address to nothing
-      setaccount({
-        address: "",
-      });
+      setaccount("");
       console.log("Disconnected");
     } else {
-      setaccount({
-        address: account.address,
-      });
+      setaccount(address);
+      //  Handle the Connection to the Smart Contract
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const connection = new ethers.Contract(
+        SMART_CONTRACT_ADDRESS,
+        abi,
+        provider
+      );
+      setConnection(connection);
       console.log("Connected");
     }
-  }, [account.address]);
+  }, [address]);
+
+  console.log(connection);
 
   const handleConnectWallet = () => {
     // Asking if metamask is already present or not
@@ -41,38 +50,20 @@ const AppContainer = () => {
     }
   };
 
-  const getbalance = (address) => {
-    // Requesting balance method
-    window.ethereum
-      .request({
-        method: "eth_getBalance",
-        params: [address, "latest"],
-      })
-      .then((balance) => {
-        // Setting balance
-        setaccount({
-          Balance: ethers.utils.formatEther(balance),
-        });
-      });
-  };
-
   // Function for getting handling all events
   const accountChangeHandler = (account) => {
     // Setting an address data
     setaccount({
       address: account,
     });
-
-    // Setting a balance
-    getbalance(account);
   };
 
   return (
     <Fragment>
-      <Nav data={account} handler={handleConnectWallet} />
-      <SearchBox data={account} handler={handleConnectWallet} />
-      <FeaturedBooks />
-      <MyBooks data />
+      <Nav address={address} handler={handleConnectWallet} />
+      <SearchBox address={address} handler={handleConnectWallet} />
+      <FeaturedBooks handleConnectWallet />
+      <MyBooks handleConnectWallet />
     </Fragment>
   );
 };

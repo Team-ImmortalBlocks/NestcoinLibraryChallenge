@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Container from "react-bootstrap/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
@@ -11,7 +10,7 @@ const client = create("https://ipfs.infura.io:5001/api/v0");
 
 const SearchBox = (props) => {
   // Get the user address
-  const { address } = props.data;
+  const { address } = props;
 
   // Get the wallet connection handler function
   const handleConnectWallet = props.handler;
