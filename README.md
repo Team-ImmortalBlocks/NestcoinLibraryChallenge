@@ -34,10 +34,12 @@ Just click on the search button, and search by name, CID, description etc
 
 
 <h2> TEAM MEMBERS </h2>
-Clinton Felix
-Okekunle Oluwatobiloba
-Oluwafemi Oguntunse
-Keneth Ijama
-Abdulhafeez Jimoh
-Rukayyah Ibrahim
-Igwe Uchenna Felix
+
+<ul>
+<li>Clinton Felix</li>
+<li>Okekunle Oluwatobiloba</li>
+<li>Oluwafemi Oguntunse</li>
+<li>Kenneth Ijama</li>
+<li>Abdulhafeez Jimoh</li>
+<li>Rukayyah Ibrahim</li>
+<li>Igwe Uchenna Felix</li></ul>
